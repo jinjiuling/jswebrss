@@ -1,0 +1,262 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <script type="text/javascript" src="./jquery-1.8.2.js"></script>
+    <script src="./jquery.masonry.min.js"></script>
+<script type="text/javascript" src="./jquery.jfeed.pack.js"></script>
+<link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script type="text/javascript">
+function GetQueryValue(queryName) {
+     var query = decodeURI(window.location.search.substring(1));
+     var vars = query.split("&");
+     for (var i = 0; i < vars.length; i++) {
+         var pair = vars[i].split("=");
+         if (pair[0] == queryName) { return pair[1]; }
+     }
+     return null;
+ };
+ var url = GetQueryValue('url');
+
+ 
+jQuery(function() {
+ if(!url){$("#home").css("display","block");}else{$("#home").remove();} 
+});
+
+jQuery(function() {
+    
+
+    jQuery.getFeed({
+        
+        url: 'https://fech.lovehe.cf/?'+url,
+        
+        success: function(feed) {
+        
+            jQuery('head').prepend('<title>' + feed.title + '</title>');
+            jQuery('body').prepend('<div id="container" class="zong"></div>');
+            jQuery('body').prepend('<div id="fade" class="black_overlay" style="display: none;"></div><div id="title" style="font-family: cursive;font-weight:600;height:auto;margin: 0 0 40px 0px;overflow: hidden;width: 100%;border-bottom:0px solid #009688; "><div class="t" style="margin:10px;padding:0px 10px 0px 10px;"><h1 class="serif" style="font-weight:100;font-family: paopaozh,STliti,lisu,Georgia,Serif,sans-serif; color: #0366d6; width: 100%;text-align: center;font-size: 45;">'
+            + '<a href="'
+            + feed.link
+            + '">'
+            + feed.title
+            + '</a>'
+            + '</h2><div class="des" style="color:#1a2a3a !important;width:100%;text-align: center;font size:16px;max-height:62px;">'
+            +feed.description
+            +'</div></div></div>');
+           // jQuery('#title').append('<div class="proxy" style="color:#1a2a3a;width:100%;    margin: 0 0 0 0;text-align: center;"><a href="https://dl.lovehe.cf/https/rss.lovehe.cf/?id='+url+'"> 🌏</a> <a href="https://p.dl.lovehe.cf/-----http://rss.lovehe.cf/?id='+url+'">代理</a><a style="outline:none;">🌏</a></div> '); 
+            title = feed.title
+            var html = '';
+            
+            for(var i = 0; i < feed.items.length; i++) {
+                var k = i+1;
+                var item = feed.items[i];
+                //if (item.updated==true){date='<a><i class="fa fa-calendar" aria-hidden="true"></i>  '+item.updated+'</a></div>'}else{date=' '}
+                //console.log(date);
+                html += '<div id="'+ i +'" class="posts"><div id="root'+i+'" class="post" onclick ="big()"><h3 style="color:#0366d6;height:30px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;"onclick="event.cancelBubble = true">'
+                + '<a href="'
+                + item.link
+                + '" target="_blank">'
+                + k +'.' + item.title
+                + '</a>'
+                + '</h3>';
+                
+                html += '<h5 onclick="event.cancelBubble = true"><a><i class="fa fa-calendar" aria-hidden="true"></i>  '
+                + item.updated
+                + '</a></h5>';
+                
+                
+                
+                html += '<div onclick="event.cancelBubble = true">'
+                + item.description
+                + '</div></div></div>';
+            }
+            
+            jQuery('#container').prepend(html);
+            
+        }    
+    });
+
+
+
+});
+
+function big() {
+	  var element = document.elementFromPoint(event.clientX,event.clientY);
+    console.log(event.srcElement.id);
+    var id='#'+event.srcElement.id;  
+    $("#fade").css("display","block");
+	    jQuery('body').prepend('<div class="white_content" onclick="bigremove()"style="display:block"><div style="margin:5px 15px 5px 15px;padding:0px 60px;">' 
+	   + $(id).html()
+	    );
+	}
+	function bigremove() {
+	    $("#fade").css("display","none");
+	  $("div.white_content").remove();
+	}
+
+function loadCSS() {
+            if ((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|wOSBrowser|BrowserNG|WebOS)/i))) {
+                document.write('<link href="./waprss.css" rel="stylesheet" type="text/css" media="screen" />');
+                //alert("shouji");
+            } else {
+                //alert("diannao");
+                document.write('<link href="./pcrss.css" rel="stylesheet" type="text/css" media="screen" />');
+            }
+        }
+        loadCSS();
+function ClickMenu(diving) {
+    //alert(diving);
+    if (document.getElementById(diving).style.display == "none") {
+        document.getElementById(diving).style.display = 'block';
+    }
+    else {
+        document.getElementById(diving).style.display = 'none';
+    }
+}
+jQuery('#foote').css('display','block');	
+jQuery(function() {
+        jQuery(window).load(function() {
+                
+            $(function() {
+                    $('#container').masonry({
+                        // options 锟斤拷锟斤拷选锟斤拷
+                        itemSelector: '.posts', //class 选锟斤拷锟斤拷
+                        columnWidth: 50, //一锟叫的匡拷锟 Integer
+                        isAnimated: true, //使锟斤拷jquery锟侥诧拷直浠  Boolean
+                        animationOptions: {
+                           //   Object { queue: false, duration: 500 }
+                        },
+                        gutterWidth: 0, //锟叫的硷拷隙 Integer
+                        isFitWidth: true, // 锟斤拷应锟斤拷锟   Boolean
+                        isResizableL: true, // 锟角凤拷傻锟斤拷锟斤拷小 Boolean
+                        isRTL: false, //使锟矫达拷锟揭碉拷锟斤拷牟锟斤拷 Boolean
+                    });
+                });
+                
+                //document.getElementById('cover1').style.display = 'none'
+            
+            jQuery(setTimeout(function() {jQuery('#foote').css('display','block');	},5000));
+        });    
+        });
+
+
+</script>
+
+</head>
+<body>
+<div id="home">    
+<h1 id="ttt" class="serif" style="color: #0366d6;font-weight:100;font-family: paopaozh;width:100%;text-align: center;" dblclick="ClickMenu('hidden')"> Web RSS Read</h1>
+
+<div class="proxy" style="color:#1a2a3a;width:100%;    margin: 0 0 0 0;text-align: center;"><a href="https://dl.lovehe.cf/https/rss.lovehe.cf/?id="> 🌏</a> <a href="https://p.dl.lovehe.cf/-----http://rss.lovehe.cf/?id=">代理</a><a style="outline:none;" onclick="ClickMenu('hiden')">🌏</a></div>
+
+<div id="add" style="z-index:999999; text-align: center">
+            <form style="align-content: center">
+
+                <input type="text" onkeydown="this.onkeyup();" onkeyup="this.size=(this.value.length>4?this.value.length:4);" size="4" id="site" style="font-family: cursive;cursor: url(https://cdn.jsdelivr.net/gh/jinjiuling/webrss@2.8/cur3.png), auto;min-width:300px;max-width:95%;padding-left: 65px;padding-right: 15px; border: none;outline:none;border-radius: 20px;height:40px; z-index:999999;border-color: #ffffff;background: rgba(255,255,255,0);font-size: 16px" placeholder="输入RSS链接...">
+<button type="button" onclick="jump()" style=" top: 5px; width: 52px; border-radius: 0 20px 20px 0;outline:none; height: 41px; right: 56px; border: none; color:#0366d6;font-family: FontAwesome;cursor:url(https://cdn.jsdelivr.net/gh/jinjiuling/webrss@2.8/cur4.png), auto;position: relative;background: rgba(255,255,255,0);font-size:20px;"><svg t="1625977623397" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3226" width="20" height="20"><path d="M431.944795 848.634071A424.251158 424.251158 0 1 1 841.439391 533.607823 36.100875 36.100875 0 0 1 771.082211 515.030365a352.181163 352.181163 0 1 0-637.299022 98.025734 352.312918 352.312918 0 0 0 527.678847 77.867215 36.100875 36.100875 0 1 1 47.168296 54.678333 424.119403 424.119403 0 0 1-276.685537 103.032424z" fill="#0060F7" p-id="3227"></path><path d="M980.967955 1024a36.100875 36.100875 0 0 1-23.979414-9.486361L767.12956 846.394236a36.100875 36.100875 0 0 1 47.958827-54.019558l189.858981 168.514668a36.100875 36.100875 0 0 1-23.979413 63.110654zM645.783189 466.808029a36.100875 36.100875 0 0 1-36.100875-36.100875 173.126094 173.126094 0 0 0-172.862584-172.862584 36.100875 36.100875 0 1 1 0-72.20175 245.327844 245.327844 0 0 1 245.064334 245.064334 36.100875 36.100875 0 0 1-36.100875 36.100875z" fill="#FF4B9D" p-id="3228"></path></svg></button>
+                
+            </form>
+        </div>
+ 
+ <script type="text/javascript">
+            //敲回车键相当于确认键
+            document.onkeydown = function(event) {
+                var code = event.keyCode;
+                if (code === 13) { //这是键盘的enter监听事件
+                    $("#btn").focus();
+                }
+            };
+
+            function jump() {
+                var site = $("#site").val();
+                if (site === '' || site === undefined || site == null) {
+                    alert("没有输入链接！");
+                    return;
+                }
+                window.location.href = "./rss.html?url=" + site;
+            }
+        </script>
+    
+<div id="loading" class="load" style=""><img class="mcj" src="./mctmbig.php">
+		
+        <div id="hiden" class="hi">
+             <div style="padding: 5px 30px;margin-bottom: 10px;outline:none;">
+             <span style="display:none;" id="hidden">
+             <li><a style="color:#ff7600;" href="?id=https://rsshub.uneasy.win/dcard/sex">Dcard Sex</a></li>
+             <li><a style="color:#ff7600;" href="?id=https://rsshub.uneasy.win/2048/bbs/15">2048</a></li>
+             <li><a style="color:#ff7600;" href="?id=https://rsshub.uneasy.win/javbus/star/9pj">Xi Dao</a></li>
+             <li><a style="color:#ff7600;" href="?id=https://rsshub.uneasy.win/javbus/star/qfy">Xiang Ze</a></li>
+             <li><a style="color:#ff7600;" href="?id=https://rsshub.uneasy.win/javbus/star/vnf">Melody</a></li>
+             <li><a style="color:#ff7600;" href="?id=https://rsshub.uneasy.win/javbus/star/vfn">Qi Teng</a></li>
+             <li><a style="color:#ff7600;" href="?id=https://rsshub.uneasy.win/javbus/star/vbn">Mu Hei</a></li>
+             <li><a style="color:#ff7600;" href="?id=https://rsshub.uneasy.win/javbus/star/w4u">Xiao Ye</a></li>
+             <li><a style="color:#ff7600;" href="?id=https://rsshub.uneasy.win/javbus/star/pmv">Qiao Ben</a></li>
+             <li><a style="color:#ff7600;" href="?id=https://rsshub.uneasy.win/javbus/star/2m3">Da Gui</a></li>
+             <li><a style="color:#ff7600;" href="?id=https://rsshub.uneasy.win/javbus/star/vbt">Qing Kong</a></li>
+             <li><a style="color:#ff7600;" href="?id=https://rsshub.uneasy.win/javbus/star/xu6">天然かのん</a></li>
+             <li><a style="color:#ff7600;" href="?id=https://rsshub.uneasy.win/javbus/star/vtc">藤森里穂</a></li> 
+             <li><a style="color:#ff7600;" href="?id=https://rsshub.uneasy.win/141jav/actress/Kijima Airi">141xi dao</a></li>
+             <li><a style="color:#ff7600;" href="?id=http://tb.jinjiuling.tk/91.xml">91</a></li>
+             </span>
+        </div>
+        </div>
+        </div>
+        
+<div class="menu-wrap" style="">
+        <input type="checkbox" class="toggler">
+        <div class="hamburger">
+            <div></div>
+        </div>
+        <div class="menu" style="">
+            <div class="t" style="border-bottom: 5px solid #0366d6;">
+                <h2 style="color:#0366d6;font-size:2rem;"><i class="fa fa-rss-square"></i> <a style="color:#0366d6;font-size:2rem;font-weight:100;font-family: paopaozh;" href="/">RSS Reader</a></h2>
+            </div>
+            <div class="tt">
+                <span>
+<li><ss id="/update4.php/?id=https://rsshub.rssforever.com/x-mol/news/16" onclick="mvad1()"></ss><a href="?id=https://rsshub.rssforever.com/x-mol/news/16" target="_blank">材料X-Mol</a></li><li><ss id="/update4.php/?id=https://rsshub.rssforever.com/zaobao/znews/china" onclick="mvad1()"></ss><a href="?id=https://rsshub.rssforever.com/zaobao/znews/china" target="_blank">《联合早报》新闻</a></li><li><ss id="/update4.php/?id=https://rsshub.rssforever.com/zaobao/realtime/china" onclick="mvad1()"></ss><a href="?id=https://rsshub.rssforever.com/zaobao/realtime/china" target="_blank">《联合早报》即时</a></li><li><ss id="/update4.php/?id=https://rsshub.rssforever.com/adnmb/20" onclick="mvad1()"></ss><a href="?id=https://rsshub.rssforever.com/adnmb/20" target="_blank">欢乐恶搞-A岛</a></li><li><ss id="/update4.php/?id=https://rsshub.rssforever.com/adnmb/31" onclick="mvad1()"></ss><a href="?id=https://rsshub.rssforever.com/adnmb/31" target="_blank">电影/电视-A岛</a></li><li><ss id="/update4.php/?id=https://rsshub.rssforever.com/adnmb/-1" onclick="mvad1()"></ss><a href="?id=https://rsshub.rssforever.com/adnmb/-1" target="_blank">时间线-A岛</a></li><li><ss id="/update4.php/?id=http://www.yohoboys.com/rss" onclick="mvad1()"></ss><a href="?id=http://www.yohoboys.com/rss" target="_blank">YOHO!潮流资讯</a></li><li><ss id="/update4.php/?id=https://hypebeast.cn/feed" onclick="mvad1()"></ss><a href="?id=https://hypebeast.cn/feed" target="_blank">HYPEBEAST</a></li><li><ss id="/update4.php/?id=https://www.zhihu.com/rss" onclick="mvad1()"></ss><a href="?id=https://www.zhihu.com/rss" target="_blank">知乎每日精选</a></li><li><ss id="/update4.php/?id=https://anyway.fm/news/rss.xml" onclick="mvad1()"></ss><a href="?id=https://anyway.fm/news/rss.xml" target="_blank">安妮薇时报</a></li><li><ss id="/update4.php/?id=http://www.woshipm.com/feed" onclick="mvad1()"></ss><a href="?id=http://www.woshipm.com/feed" target="_blank">都是产品经理</a></li><li><ss id="/update4.php/?id=http://tb.lovehe.cf/fu/makefulltextfeed.php?url=tb.lovehe.cf%2Fycxcr.xml&amp;max=12&amp;links=preserve&amp;exc=&amp;submit=Create+Feed" onclick="mvad1()"></ss><a href="?id=http://tb.lovehe.cf/fu/makefulltextfeed.php?url=tb.lovehe.cf%2Fycxcr.xml&amp;max=12&amp;links=preserve&amp;exc=&amp;submit=Create+Feed" target="_blank">叶辰萧初然</a></li><li><ss id="/update4.php/?id=https://tb.lovehe.cf/vqq/jpjd.xml" onclick="mvad1()"></ss><a href="?id=https://tb.lovehe.cf/vqq/jpjd.xml" target="_blank">极品家丁-包子漫画</a></li><li><ss id="/update4.php/?id=https://tb.lovehe.cf/vqq/yrzx.xml" onclick="mvad1()"></ss><a href="?id=https://tb.lovehe.cf/vqq/yrzx.xml" target="_blank">一人之下-包子漫画</a></li><li><ss id="/update4.php/?id=https://rsshub.rssforever.com/mi/bbs/board/567428" onclick="mvad1()"></ss><a href="?id=https://rsshub.rssforever.com/mi/bbs/board/567428" target="_blank">主题壁纸</a></li><li><ss id="/update4.php/?id=https://rsshub.rssforever.com/mi/bbs/board/5575166" onclick="mvad1()"></ss><a href="?id=https://rsshub.rssforever.com/mi/bbs/board/5575166" target="_blank">小米9</a></li><li><ss id="/update4.php/?id=https://tb.lovehe.cf/jxm3u/wzry.xml" onclick="mvad1()"></ss><a href="?id=https://tb.lovehe.cf/jxm3u/wzry.xml" target="_blank">虎牙王者区</a></li><li><ss id="/update4.php/?id=https://tb.lovehe.cf/jxm3u/hyyqk.xml" onclick="mvad1()"></ss><a href="?id=https://tb.lovehe.cf/jxm3u/hyyqk.xml" target="_blank">虎牙一起看</a></li><li><ss id="/update4.php/?id=https://rsshub.rssforever.com/sina/finance" onclick="mvad1()"></ss><a href="?id=https://rsshub.rssforever.com/sina/finance" target="_blank">新浪财经</a></li><li><ss id="/update4.php/?id=http://feed.informer.com/digests/NNYFXPJYFH/feeder.rss" onclick="mvad1()"></ss><a href="?id=http://feed.informer.com/digests/NNYFXPJYFH/feeder.rss" target="_blank">telegtam无代理</a></li><li><ss id="/update4.php/?id=https://rsshub.rssforever.com/baidu/daily" onclick="mvad1()"></ss><a href="?id=https://rsshub.rssforever.com/baidu/daily" target="_blank">知道日报</a></li><li><ss id="/update4.php/?id=https://rsshub.rssforever.com/ddrk/index" onclick="mvad1()"></ss><a href="?id=https://rsshub.rssforever.com/ddrk/index" target="_blank">低端影视</a></li><li><ss id="/update4.php/?id=https://rsshub.rssforever.com/dytt" onclick="mvad1()"></ss><a href="?id=https://rsshub.rssforever.com/dytt" target="_blank">电影天堂</a></li><li><ss id="/update4.php/?id=https://rss.mifaw.com/articles/5c8bb11a3c41f61efd36683e/5cac99a7f5648c90ed310e18" onclick="mvad1()"></ss><a href="?id=https://rss.mifaw.com/articles/5c8bb11a3c41f61efd36683e/5cac99a7f5648c90ed310e18" target="_blank">微博热搜</a></li><li><ss id="/update4.php/?id=https://rss.mifaw.com/articles/5c8bb11a3c41f61efd36683e/5c919d543882afa09dff3fa3" onclick="mvad1()"></ss><a href="?id=https://rss.mifaw.com/articles/5c8bb11a3c41f61efd36683e/5c919d543882afa09dff3fa3" target="_blank">知乎热榜</a></li><li><ss id="/update4.php/?id=https://blog.jialezi.net/rss.php" onclick="mvad1()"></ss><a href="?id=https://blog.jialezi.net/rss.php" target="_blank">Jialezi `s blog</a></li><li><ss id="/update4.php/?id=https://rsshub.rssforever.com/yyets/article" onclick="mvad1()"></ss><a href="?id=https://rsshub.rssforever.com/yyets/article" target="_blank">资讯列表 - 人人影视</a></li>                                 
+                    
+                    
+               </span>
+            </div>
+        </div>
+     </div>
+        
+</div>
+<footer class="footer" id="foote" style="display: none; position: inherit; margin-top: 100px;">
+            <div class="footer-inner">
+                <div class="copyright">
+                    © 2020 –
+                    <span itemprop="copyrightYear">2022</span>
+
+                    <i class="fa fa-heart" onclick="ClickMenu('hidden')"></i>
+
+                    <span class="author" itemprop="copyrightHolder" style="color:#1a2a3a">jinjiuling</span>
+                    <span class="post-meta-divider">|</span>
+
+                    <i class="fa fa-rss"></i>
+
+                    <a style="color:#000;">收录数:</a>
+                    <a title="RSS源收录数">27</a>
+                    <span class="post-meta-divider">|</span>
+
+                    <i class="fa fa-flag"></i>
+
+                    <a style="color:#000;">item个数∶</a>
+                    <span title="item个数">20</span>
+                </div>
+                <div class="powered-by" style="color:#000;">RSS源： <a title="RSS链接来源" style="color:#ff7600;" href="https://rsshub.uneasy.win/" class="theme-link" rel="noopener" target="_blank">RSShub</a>
+                </div>
+                <span class="post-meta-divider">|</span>
+                <div class="theme-info" style="color:#000;"> <a class="theme-link" style="color:#ff7600;" rel="noopener" target="_blank">  <script async="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <span id="busuanzi_container_site_pv" style="color: rgb(0, 0, 0); display: inline;">本站总访问量<span id="busuanzi_value_site_pv" style="color:#ff7600;">5428572</span>次</span></a>
+                <span class="post-meta-divider">|</span>
+                 <a href="/about" class="theme-link" style="color:#ff7600;" rel="noopener">About</a>
+				</div>
+            </div>
+        </footer>
+</body>
+
+</html>
