@@ -125,7 +125,7 @@ float:left;
 }
 h1.serif{font-family: 'Candyshop',LXGW WenKai, STLiti,Georgia,Serif,sans-serif;font-size:45px;position:relative;animation: showup 3s 1; color: #0366d6 !important; width: 100%;text-align: center;}
 
-h1{    word-spacing: 50px;  letter-spacing: 10;}
+h1{    word-spacing: 100px;  letter-spacing: 10;}
 body {  
     cursor: url(https://cdn.jsdelivr.net/gh/jinjiuling/webrss@2.9/cu4.png), auto;
 
