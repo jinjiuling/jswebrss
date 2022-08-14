@@ -133,7 +133,7 @@ body {
 
 .zong{
 	content-visibility: auto;
-	//contain-intrinsic-size: auto;
+	contain-intrinsic-size: auto;
 width: 100%;
     //padding-right: 15px;
     //padding-left: 15px;
@@ -143,8 +143,8 @@ font-family: LXGW WenKai;
 min-height:400px;
 }
 .post{
-    content-visibility: auto;
-    contain-intrinsic-size: 5000px;
+    //content-visibility: auto;
+    //contain-intrinsic-size: 5000px;
     position: relative;
     width: 380px;
     //margin-left: auto;
