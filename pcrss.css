@@ -132,7 +132,7 @@ body {
 }
 
 .zong{
-	//content-visibility: auto;
+	content-visibility: auto;
 width: 100%;
     //padding-right: 15px;
     //padding-left: 15px;
@@ -142,7 +142,7 @@ font-family: LXGW WenKai;
 min-height:400px;
 }
 .post{
-    content-visibility: auto;
+    //content-visibility: auto;
     
     position: relative;
     width: 380px;
