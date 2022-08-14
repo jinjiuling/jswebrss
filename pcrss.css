@@ -144,7 +144,7 @@ min-height:400px;
 }
 .post{
     content-visibility: auto;
-    contain-intrinsic-size: 10000px;
+    contain-intrinsic-size: 5000px;
     position: relative;
     width: 380px;
     //margin-left: auto;
