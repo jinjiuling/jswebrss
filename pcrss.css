@@ -133,7 +133,7 @@ body {
 
 .zong{
 	content-visibility: auto;
-	contain-intrinsic-size: auto;
+	//contain-intrinsic-size: auto;
 width: 100%;
     //padding-right: 15px;
     //padding-left: 15px;
