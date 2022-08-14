@@ -142,8 +142,8 @@ font-family: LXGW WenKai;
 min-height:400px;
 }
 .post{
-    //content-visibility: auto;
-    
+    content-visibility: auto;
+    contain-intrinsic-size: auto;
     position: relative;
     width: 380px;
     //margin-left: auto;
