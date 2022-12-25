@@ -30,7 +30,7 @@ var run_once=true;
 var index=0;
 //先执行一次
 barrager();
-element.innerHTML = items['0']['num'];
+element.innerHTML = upnum;
 function  barrager(){
  
   
