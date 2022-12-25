@@ -35,6 +35,7 @@ jQuery(function() {
     jQuery.getFeed({
         
         url: 'https://fech.jinjiuling.tk/?'+url,
+	
         
         success: function(feed) {
         
@@ -52,7 +53,7 @@ jQuery(function() {
            // jQuery('#title').append('<div class="proxy" style="color:#1a2a3a;width:100%;    margin: 0 0 0 0;text-align: center;"><a href="https://dl.lovehe.cf/https/rss.lovehe.cf/?url='+url+'"> 🌏</a> <a href="https://p.dl.lovehe.cf/-----http://rss.lovehe.cf/?url='+url+'">代理</a><a style="outline:none;">🌏</a></div> '); 
             title = feed.title
             var html = '';
-            
+            var upnum = feed.items.length;
             for(var i = 0; i < feed.items.length; i++) {
                 var k = i+1;
                 var item = feed.items[i];
