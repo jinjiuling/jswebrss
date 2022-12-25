@@ -1,8 +1,7 @@
 function mvad1() {
     var element = document.elementFromPoint(event.clientX,event.clientY);
     console.log(event.srcElement.id);
-    var url=event.srcElement.id;
-
+    
     //var danmuurl=url + '';
 /*var httpRequest = new XMLHttpRequest();
         httpRequest.open('GET', url, true);
@@ -15,9 +14,8 @@ function mvad1() {
                 element.innerHTML = unjson['0']['num'];
                 var danmuurl='./danmu.json?num=' + unjson["data"]["num"];*/
                 
-$.ajaxSettings.async = false;
 
-$.getJSON(url,function(data){
+
  
 //每条弹幕发送间隔
 var looper_time=1*1000;
@@ -31,6 +29,7 @@ var index=0;
 //先执行一次
 barrager();
 element.innerHTML = upnum;
+ console.log(upnum);   
 function  barrager(){
  
   
@@ -56,7 +55,7 @@ function  barrager(){
 }
  
  
-});
+
 //            }
 //       };
 
