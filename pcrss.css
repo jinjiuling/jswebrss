@@ -28,7 +28,7 @@
     font-family: shouxie;
         src: url('https://cdn.jsdelivr.net/gh/jinjiuling/webrss@2.1/shouxie.woff') ;
 }
-ss{background: #0366d6;border-radius: 20px;  min-width: 20px;  float: right;color:#fff;position:absolute;top:5px;right:0px;height:20px}
+ss{background: #0366d6;border-radius: 20px;  min-width: 20px;  float: right;color:#fff;position:relative;top:5px;right:0px;height:20px}
 summary::marker {
     display: none;
        color:#fff;
